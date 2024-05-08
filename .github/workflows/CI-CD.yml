@@ -1,7 +1,8 @@
-name: CI/CD-Demo
+
+name: GitHub Actions Demo
 on:
   push:
-   branches: master
+   branches: main
    
   workflow_dispatch:
   
@@ -14,25 +15,26 @@ jobs:
         run: echo Hello, world!
       
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.3
+        uses: actions/upload-artifact@v3.1.2
         with:
-           name: artifact
-           path: ${{github.workspace}}/*
+         name: test
+         path: ${{github.workspace}}/*  
+         
   DeployToDev:
     runs-on: windows-latest
     needs: Build
-    # environment: Dev
+    environment: Dev
         
     steps:
         - name: Download artifact from build job
           uses: actions/download-artifact@v3
           with:
-            name: artifact
+            name: test
   
   DeployToProd:
     runs-on: windows-latest
     needs: DeployToDev
-    # environment: Production
+    environment: Production
     
     steps:
       - name: Deploying To Production
