@@ -18,3 +18,22 @@ jobs:
         with:
            name: artifact
            path: ${{github.workspace}}/*
+  DeployToDev:
+    runs-on: windows-latest
+    needs: Build
+    # environment: Dev
+        
+    steps:
+        - name: Download artifact from build job
+          uses: actions/download-artifact@v3
+          with:
+            name: test
+  
+  DeployToProd:
+    runs-on: windows-latest
+    needs: DeployToDev
+    # environment: Production
+    
+    steps:
+      - name: Deploying To Production
+        run: "echo I just deployed to Production"
