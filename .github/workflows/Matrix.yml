@@ -15,10 +15,13 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest  
+  example_matrix:
     strategy:
       matrix:
-        configuration: [debug, release]
+        os: [ubuntu-22.04, ubuntu-20.04]
+        version: [10, 12, 14]
+    runs-on: ${{ matrix.os }}
     steps:
-    - run: echo "🔧 Building the configuration ${{ matrix.configuration }}."
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
