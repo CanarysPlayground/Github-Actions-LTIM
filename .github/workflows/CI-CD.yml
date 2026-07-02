@@ -10,12 +10,12 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7.0.0
       - name: Run a one-line script
         run: echo Hello, world!
       
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v7.0.1
         with:
          name: test
          path: ${{github.workspace}}/*  
@@ -27,7 +27,7 @@ jobs:
         
     steps:
         - name: Download artifact from build job
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v7.0.0
           with:
             name: test
   
